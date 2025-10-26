@@ -2,13 +2,17 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors"
 import ENV from './lib/ENV.js'
-
+import cookieParser from "cookie-parser"
+import profile from './routes/profile.js'
  const app=express()
  
+
+
  app.use(express())
 
- app.use(cors())
-
+ app.use(cors({credentials:true}))
+ app.use(cookieParser())
+app.use('/api/profile',profile)
  mongoose.connect(ENV.MONGO_URL)
  .then(()=>console.log("MongoDb connected "))
 .catch((err)=>console.log(`Error ocured while connecting mongoDb ${err.message}` ))
